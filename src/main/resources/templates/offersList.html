@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+    layout:decorator="layout">
+  <head>
+      <title>Lista ofert</title>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+      <section layout:fragment="content">
+      <!--    <p th:each="cm : ${carManufacturers}" th:text="${cm.name}"></p>
+          <br/>
+          <span>Teraz modele</span>
+          <br/>
+          <p th:each="cm : ${carModel}" th:text="${cm.name}"></p>
+          <span>Teraz bodyStyle</span>
+          <br/>
+          <p th:each="cm : ${bodyStyle}" th:text="${cm.name}"></p>
+          <span>Teraz fuelType</span>
+          <br/>
+          <p th:each="cm : ${fuelType}" th:text="${cm.name}"></p>
+          <span>Teraz carModel1</span>
+          <br/>
+          <p th:each="cm : ${carModel1}" th:text="${cm.name}"></p>
+          <br/>
+          <span>Teraz oferty</span>
+          <br/>
+          <p th:each="cm : ${offer}" th:text="${cm.title}"></p>
+          
+          <br/>
+           <span>Teraz oferty id 10</span>
+          <br/>
+          <p th:each="cm : ${offer2}" th:text="${cm.title}"></p>
+          <br/>
+          <br/>
+           <span>Teraz oferty po manufacture</span>
+          <br/>
+          <p th:each="cm : ${offer3}" th:text="${cm.name}"></p>
+          <br/>
+          
+           <span>Teraz oferty po id</span>
+          <br/>
+          <p th:each="cm : ${offer4}" th:text="${cm.title}"></p>
+          <br/>
+ -->
+ 
+        <div id="offerFilter" class="panel panel-default">
+              <div class="panel-heading">Szukaj ofert</div>
+              <div class="panel-body">
+                  <form id="offerFilterForm" action="/" method="get" class="form-inline" th:object="${offerFilter}">
+                      <select class="form-control" th:field="*{manufacturerId}">
+                          <option value="">Marka</option>
+                          <option th:each="manufacturer : ${carManufacturers}" th:value="${manufacturer.id}" th:text="${manufacturer.name}"></option>
+                      </select>
+                      <select class="form-control" th:field="*{modelId}">
+                          <option value="">Model</option>
+                            <option th:each="model : ${filteredCarModels}" th:value="${model.id}" th:text="${model.name}"></option>
+                      </select>
+
+                      <input type="submit" value="Filtruj" class="form-control"/>
+                  </form>
+              </div>
+          </div>
+ 
+         <table class="table">
+              <tr>
+                  <th>Tytuł</th>
+                  <th>Marka</th>
+                  <th>Model</th>
+                  <th>Rocznik</th>
+                  <th>Cena</th>
+                  <th></th>
+              </tr>
+              <tr th:each="offer : ${offers}">
+                  <td th:text="${offer.title}"></td>
+                  <td th:text="${offer.model.manufacturer.name}"></td>
+                  <td th:text="${offer.model.name}"></td>
+                  <td th:text="${offer.year}"></td>
+                   <td class="text-right">
+                  <span th:text="${#numbers.formatDecimal(offer.price, 0, 'WHITESPACE', 0,'COMMA')}"></span>
+                  zł
+              </td>
+                  <td><a th:href="|/offer/${offer.id}|">Pokaż</a></td>
+              </tr>
+          </table>
+          
+          
+      </section>
+  </body>
+</html>
